@@ -1,6 +1,8 @@
 package ru.alexandrpokh.criminalintent;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment {
 
     private  static final String ARG_CRIME_ID = "crime_id";
+    public static final String EXTRA_POSITION = "is_position";
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
@@ -36,11 +39,18 @@ public class CrimeFragment extends Fragment {
         return fragment;
     }
 
+    public void returnResult() {
+        Intent intentPosition = new Intent();
+        intentPosition.putExtra(EXTRA_POSITION, CrimeLab.get(getActivity()).getPosition(mCrime.getId()));
+        getActivity().setResult(Activity.RESULT_OK, intentPosition);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        returnResult();
     }
 
     @Nullable
@@ -85,4 +95,5 @@ public class CrimeFragment extends Fragment {
         System.out.println(CrimeLab.get(getActivity()).getPosition(mCrime.getId()));
         return v;
     }
+
 }
