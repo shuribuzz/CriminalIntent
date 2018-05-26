@@ -24,12 +24,10 @@ public class CrimeLab {
         mCrimes = new ArrayList<>();
      //   mAppContext = appContext;
 
-        for(int i = 0; i<100; i++){
-            Crime crime = new Crime();
-            crime.setTitle("Косяк №" + i);
-            crime.setSolved(i%2 == 0);
-            mCrimes.add(crime);
-        }
+    }
+
+    public void addCrime(Crime c){
+        mCrimes.add(c);
     }
 
     public List<Crime> getCrimes() {
